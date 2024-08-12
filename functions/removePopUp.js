@@ -1,24 +1,30 @@
-import { flashlightHTML, mouseMoveListener } from "../components/flashlightScreen/flashlight.js"
+import {
+	flashlightHTML,
+	mouseMoveListener,
+} from "../components/flashlightScreen/flashlight.js";
+
+import { clickHandler } from "./placeElementsOnScreen.js";
 
 function addMouseMoveListener() {
-  const body = document.querySelector('body');
-  body.insertAdjacentHTML('afterbegin', flashlightHTML);
-  mouseMoveListener();
+	const body = document.querySelector("body");
+	body.insertAdjacentHTML("afterbegin", flashlightHTML);
+	mouseMoveListener();
 }
 
 function removePopUp() {
-  const body = document.querySelector("body");
-  const popUp = document.querySelector(".welcome-screen");
+	const body = document.querySelector("body");
+	const popUp = document.querySelector(".welcome-screen");
 
-  if (popUp) {
-    body.removeChild(popUp);
-  }
+	if (popUp) {
+		body.removeChild(popUp);
+	}
 
-  addMouseMoveListener();
+	clickHandler();
+	addMouseMoveListener();
 }
 
 const button = document.querySelector(".start-btn");
 
 if (button) {
-  button.addEventListener("click", removePopUp);
+	button.addEventListener("click", removePopUp);
 }
