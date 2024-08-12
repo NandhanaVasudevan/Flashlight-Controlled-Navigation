@@ -1,4 +1,10 @@
-import { FlashScreenPaths } from "../constants/constants.js";
+import { flashlightHTML, mouseMoveListener } from "../components/flashlightScreen/flashlight.js"
+
+function addMouseMoveListener() {
+  const body = document.querySelector('body');
+  body.insertAdjacentHTML('afterbegin', flashlightHTML);
+  mouseMoveListener();
+}
 
 function removePopUp() {
   const body = document.querySelector("body");
@@ -9,29 +15,6 @@ function removePopUp() {
   }
 
   addMouseMoveListener();
-}
-
-function addMouseMoveListener() {
-  fetch(FlashScreenPaths.html)
-    .then(response => response.text())
-    .then(data => {
-      const body = document.querySelector('body');
-      const tempDiv = document.createElement('div');
-      tempDiv.innerHTML = data;
-
-      body.prepend(tempDiv);
-
-      const flashlightContent = document.querySelector('body').innerHTML;
-
-      body.innerHTML = flashlightContent;
-
-      const script = document.createElement('script');
-      script.src = FlashScreenPaths.js;
-      body.appendChild(script);
-    })
-    .catch(error => {
-      console.error('Error loading flashlightscreen.html:', error);
-    });
 }
 
 const button = document.querySelector(".start-btn");
