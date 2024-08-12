@@ -1,4 +1,4 @@
-document.querySelector(".flashlight").addEventListener("mousemove", function (event) {
+document.addEventListener("mousemove", function (event) {
   const flashlight = document.querySelector(".flashlight");
   flashlight.style.left = event.pageX + "px";
   flashlight.style.top = event.pageY + "px";

@@ -1,1 +1,0 @@
-document.querySelector(".start-btn").addEventListener("click", (e) => console.log('hi'));
