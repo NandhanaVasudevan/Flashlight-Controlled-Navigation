@@ -57,7 +57,6 @@ function placeItemsRandomly(items, minDistance = 50) {
 			}
 		} while (isOverlapping);
 
-		item.style.position = "absolute";
 		item.style.left = `${x}px`;
 		item.style.top = `${y}px`;
 
@@ -69,7 +68,7 @@ function placeItemsRandomly(items, minDistance = 50) {
 export const createElementFromString = (strings) =>
 	strings.map((string) => {
 		const span = document.createElement("span");
-		span.class = "scattered-item";
+		span.className = "scattered-item";
 		span.innerText = string;
 		return span;
 	});
