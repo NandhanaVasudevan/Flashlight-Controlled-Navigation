@@ -18,12 +18,4 @@ export const mouseMoveListener = () => document.addEventListener("mousemove", fu
 
 export const flashlightHTML = `
 <div class="flashlight"></div>
-<nav class="hidden-nav">
-  <ul>
-    <li><a href="#">Home</a></li>
-    <li><a href="#">About</a></li>
-    <li><a href="#">Services</a></li>
-    <li><a href="#">Contact</a></li>
-  </ul>
-</nav>
 `
