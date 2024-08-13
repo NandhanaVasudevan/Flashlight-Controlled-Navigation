@@ -6,12 +6,7 @@ body {
 	overflow: hidden;
 	position: relative;
 	font-family: Arial, sans-serif;
-}
-
-.window-box {
-	display: flex;
-	justify-content: center;
-	align-items: center;
+	user-select: none;
 }
 
 .flashlight {
@@ -29,33 +24,19 @@ body {
 	transition: width 0.3s, height 0.3s;
 }
 
-nav.hidden-nav {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-}
-
-nav.hidden-nav ul {
-	list-style-type: none;
-	padding: 0;
-}
-
-nav.hidden-nav li {
-	margin: 15px 0;
-}
-
-nav.hidden-nav a {
-	text-decoration: none;
-	color: #fff;
-	font-size: 24px;
-	opacity: 0;
-	transition: opacity 0.2s ease;
-}
-
 .flashlight:hover {
 	width: 200px;
 	height: 200px;
+}
+
+.scattered-item {
+	position: absolute;
+	color: #000;
+	cursor: normal;
+
+	&:hover {
+		color: white;
+	}
 }
 
 .welcome-screen {
