@@ -1,81 +1,55 @@
-function placeItemsRandomly(items, minDistance = 50) {
-	const placedItems = [];
-	const existingElements = Array.from(
-		document.querySelectorAll("body > *")
-	).filter((el) => !items.includes(el));
+import {
+	bottomText,
+	textItems,
+} from "../components/flashlightScreen/bottomText.js";
+import { blank, words } from "../constants/constants.js";
 
+function placeItemsRandomly(items, question = "") {
 	items.forEach((item) => {
-		let isOverlapping;
-		let x, y;
-
-		do {
-			isOverlapping = false;
-
-			x = Math.random() * (window.innerWidth - item.offsetWidth - 20);
-			y = Math.random() * (window.innerHeight - item.offsetHeight - 20);
-
-			for (let placedItem of placedItems) {
-				const placedRect = placedItem.getBoundingClientRect();
-				const newRect = {
-					left: x,
-					right: x + item.offsetWidth,
-					top: y,
-					bottom: y + item.offsetHeight,
-				};
-
-				if (
-					newRect.right + minDistance > placedRect.left &&
-					newRect.left < placedRect.right + minDistance &&
-					newRect.bottom + minDistance > placedRect.top &&
-					newRect.top < placedRect.bottom + minDistance
-				) {
-					isOverlapping = true;
-					break;
-				}
-			}
-
-			if (!isOverlapping) {
-				for (let existingElement of existingElements) {
-					const existingRect = existingElement.getBoundingClientRect();
-					const newRect = {
-						left: x,
-						right: x + item.offsetWidth,
-						top: y,
-						bottom: y + item.offsetHeight,
-					};
-
-					if (
-						newRect.right > existingRect.left &&
-						newRect.left < existingRect.right &&
-						newRect.bottom > existingRect.top &&
-						newRect.top < existingRect.bottom
-					) {
-						isOverlapping = true;
-						break;
-					}
-				}
-			}
-		} while (isOverlapping);
+		const x = Math.random() * (window.innerWidth - item.offsetWidth - 100);
+		const y = Math.random() * (window.innerHeight - item.offsetHeight - 100);
 
 		item.style.left = `${x}px`;
 		item.style.top = `${y}px`;
 
 		document.body.appendChild(item);
-		placedItems.push(item);
 	});
+	document.body.insertAdjacentHTML("beforeend", bottomText(question));
 }
 
-export const createElementFromString = (strings) =>
-	strings.map((string) => {
+export const createElementFromString = (strings) => {
+	const length = strings.length;
+	return strings.map((string, index) => {
 		const span = document.createElement("span");
 		span.className = "scattered-item";
 		span.innerText = string;
+		if (index === length - 1) {
+			span.setAttribute("id", "answer");
+			span.addEventListener("onclick", () => console.log("Clicked"));
+		}
+
 		return span;
 	});
+};
 
 export const clickHandler = () => {
-	const list = ["a", "b", "c", "d", "e"]; //dummy list
-	const elements = createElementFromString(list);
+	const answer = textItems.html.answers[0];
+	const filteredList = [...words["html"], answer];
 
-	placeItemsRandomly(elements, 300);
+	const elements = createElementFromString(filteredList);
+	document.addEventListener("click", (event) => {
+		const clickedElement = event.target;
+		if (!clickedElement.classList.contains("scattered-item")) return;
+
+		if (clickedElement.id === "answer") {
+			console.log('object');
+			const textBox = document.querySelector('.target-text');
+			console.log(textBox.textContent.replace(blank, clickedElement.innerText));
+			textBox.textContent = textBox.textContent.replace(blank, clickedElement.innerText);
+		} else {
+			console.log("Wrong word clicked!");
+		}
+	});
+
+	placeItemsRandomly(elements, textItems.html.questions[0]);
 };

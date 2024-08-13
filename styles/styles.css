@@ -17,11 +17,17 @@ body {
 		rgba(255, 255, 255, 0.5) 0%,
 		rgba(255, 255, 255, 0) 70%
 	);
+	user-select: none;
 	border-radius: 50%;
 	position: absolute;
 	pointer-events: none;
 	transform: translate(-50%, -50%);
 	transition: width 0.3s, height 0.3s;
+}
+
+#answer {
+	pointer-events: visible;
+	cursor: default;
 }
 
 .flashlight:hover {
@@ -37,6 +43,22 @@ body {
 	&:hover {
 		color: white;
 	}
+}
+
+.target {
+	background-color: grey;
+	position: absolute;
+	margin: 40svw 25svw;
+	width: 50svw;
+	text-align: center;
+	z-index: -2;
+	
+}
+
+.target-text {
+	color: red;
+	font-size: xx-large;
+	padding: 5svw 0;
 }
 
 .welcome-screen {
