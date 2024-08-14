@@ -2,28 +2,32 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RadiantRiddle</title>
-    <link rel="stylesheet" href="styles/styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>Tic Tac Toe</title>
 </head>
 
 <body>
-    <div class="welcome-screen">
-        <div class="welcome-box">
-            <h1>Welcome To <span class="title">RadiantRiddle</span></h1>
-            <p class="subtitle">- Unveil the Unknown -</p>
-            <div class="instructions">
-                <p>Instructions:</p>
-                <p>1. Use your mouse to navigate the flashlight and discover hidden elements.</p>
-                <p>2. Collect all the pieces to solve the puzzle.</p>
-                <p>3. Once the puzzle is solved, the full content will be revealed.</p>
-                <p>4. Enjoy your journey!</p>
-            </div>
-            <button class="start-btn">Start</button>
-        </div>
-    </div>
-    <script type="module" src="functions/removePopUp.js"></script>
+  <main>
+    <div class="game">
+      <h1>Tic Tac Toe</h1>
+      <h1 id="winner">Winner Status None</h1>
+      <div class="game-area">
+        <button class="box"></button>
+        <button class="box"></button>
+        <button class="box"></button>
+        <button class="box"></button>
+        <button class="box"></button>
+        <button class="box"></button>
+        <button class="box"></button>
+        <button class="box"></button>
+        <button class="box"></button>
+      </div>
+      <button id="reset">Reset Game</button>
+      </div>
+      </main>
+    <script src="script.js"></script>
 </body>
 
 </html>

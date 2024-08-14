@@ -42,10 +42,9 @@ export const clickHandler = () => {
 		if (!clickedElement.classList.contains("scattered-item")) return;
 
 		if (clickedElement.id === "answer") {
-			console.log('object');
 			const textBox = document.querySelector('.target-text');
-			console.log(textBox.textContent.replace(blank, clickedElement.innerText));
 			textBox.textContent = textBox.textContent.replace(blank, clickedElement.innerText);
+			document.getElementById('answer').remove();
 		} else {
 			console.log("Wrong word clicked!");
 		}
