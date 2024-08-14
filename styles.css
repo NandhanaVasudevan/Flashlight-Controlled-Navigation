@@ -4,12 +4,12 @@
   background-color: rgb(117, 181, 211);
 }
 
-.game {
+.tic-tac-toe {
 	margin-top: 20px;
 	text-align: center;
 }
 
-.game-area {
+.tic-tac-toe-area {
 	display: grid;
 	grid-template-columns: repeat(3, 15svw);
 	height: 70svh;
