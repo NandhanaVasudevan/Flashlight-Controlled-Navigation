@@ -1,0 +1,27 @@
+body {
+    margin: 0;
+    height: 100vh;
+    background-color: #000; /* Black background */
+    display: flex;
+    justify-content: center;
+    align-items: flex-end; /* Align the content at the bottom */
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    width: 100%;
+    text-align: center;
+    padding: 20px;
+}
+
+.code-line {
+    font-size: 24px;
+    color: #00ff00; /* Green text color like in code editors */
+    font-family: "Courier New", Courier, monospace; /* Monospace font */
+    background-color: #3a3a3a; /* Grey box background */
+    padding: 15px;
+    border-radius: 5px;
+    display: inline-block;
+    border: 2px solid #1e1e1e; /* Darker border for contrast */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Slight shadow for depth */
+}
