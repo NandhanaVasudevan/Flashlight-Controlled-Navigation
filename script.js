@@ -1,6 +1,5 @@
 import { RadiantRiddleComponent } from "./components/flashlightScreen/flashlight.js";
 
-const resetButton = document.querySelector("#reset");
 const boxes = document.querySelectorAll(".box");
 const winnerText = document.querySelector("#winner");
 let gameOver = false;
@@ -19,7 +18,7 @@ const winPatterns = [
 	[2, 4, 6],
 ];
 
-boxes.forEach((box, index) => {
+boxes.forEach((box) => {
 	box.addEventListener("click", () => {
 		if (gameOver) return;
 		box.innerText = turn1 ? player1 : player2;
@@ -36,16 +35,6 @@ boxes.forEach((box, index) => {
 		turn1 = !turn1;
 	});
 });
-
-const resetGame = () => {
-	winnerText.style.visibility = "hidden";
-	turn1 = true;
-	gameOver = false;
-	boxes.forEach((box) => {
-		box.innerText = "";
-		box.disabled = false;
-	});
-};
 
 const isWinner = () => {
 	for (let pattern of winPatterns) {

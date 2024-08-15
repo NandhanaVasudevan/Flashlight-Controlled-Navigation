@@ -1,6 +1,7 @@
 import { blank, words } from "../../constants/constants.js";
-import { htmlComp, bottomText } from "./flashlightHTML.js";
+import { htmlComp } from "./flashlightHTML.js";
 import { textItems } from "./questions.js";
+import { TypingText } from "../typing/typing.js";
 
 export function RadiantRiddleComponent() {
 	const container = document.createElement("div");
@@ -27,6 +28,9 @@ function initializeComponent(container) {
 		const popUp = container.querySelector(".welcome-screen");
 		if (popUp) {
 			container.removeChild(popUp);
+			const div = document.createElement("div");
+			div.className = "flashlight";
+			document.body.insertAdjacentElement('afterbegin', div);
 		}
 
 		showNextQuestion();
@@ -59,18 +63,13 @@ function initializeComponent(container) {
 	function showNextQuestion() {
 		const questionSet = textItems[currentCategory];
 		if (currentQuestionIndex < questionSet.questions.length) {
-			let target = container.querySelector(".target");
-
-			if (!target) {
-				const div = document.createElement("div");
-				div.className = "target";
-				container.insertAdjacentElement("beforeend", div);
-				target = div;
+			const text = questionSet.questions[currentQuestionIndex];
+			const codeBox = document.querySelector(".code-box");
+			if (codeBox) {
+				codeBox.remove();
 			}
 
-			target.innerHTML = bottomText(
-				questionSet.questions[currentQuestionIndex]
-			);
+			TypingText({ container: container, text: text, speed: 50 });
 
 			placeItemsRandomly(
 				createElementFromString([
@@ -90,7 +89,7 @@ function initializeComponent(container) {
 			currentCategory = "js";
 		} else {
 			console.log("All questions completed!");
-			document.querySelectorAll('.scattered-item').forEach(e => e.remove());
+			document.querySelectorAll(".scattered-item").forEach((e) => e.remove());
 			return;
 		}
 		currentQuestionIndex = 0;
@@ -128,15 +127,18 @@ function initializeComponent(container) {
 
 	function handleAnswerClick(event) {
 		const clickedElement = event.target;
-
-		const textBox = container.querySelector(".target-text");
+		const textBox = container.querySelector(".code-box");
 
 		textBox.textContent = textBox.textContent.replace(
 			blank,
 			clickedElement.innerText
 		);
 
-		currentQuestionIndex++;
-		showNextQuestion();
+		clickedElement.remove();
+
+		setTimeout(() => {
+			currentQuestionIndex++;
+			showNextQuestion();
+		}, 2000);
 	}
 }

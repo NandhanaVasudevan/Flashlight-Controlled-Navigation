@@ -1,23 +1,23 @@
-import { blank, htmlEntities } from "../../constants/constants.js";
+import { blank } from "../../constants/constants.js";
 
 export const textItems = {
 	html: {
 		questions: [
-			`${htmlEntities["<"]}p class="my-name">${blank}${htmlEntities["<"]}/p>`,
+			`<p class="my-name">${blank}</p>`,
 			`fgebjhg ${blank}`,
 		],
 		answers: ["html", "fbsgdf"],
 	},
 	css: {
 		questions: [
-			`${htmlEntities["<"]}p class="my-name">${blank}${htmlEntities["<"]}/p>`,
+			`<p class="my-name">${blank}</p>`,
 			`nbeb ${blank}`,
 		],
 		answers: ["css", "thyhryryhy"],
 	},
 	js: {
 		questions: [
-			`${htmlEntities["<"]}p class="my-name">${blank}${htmlEntities["<"]}/p>`,
+			`<p class="my-name">${blank}</p>`,
 			`frrgthh ${blank}`,
 		],
 		answers: ["js", "efgh"],

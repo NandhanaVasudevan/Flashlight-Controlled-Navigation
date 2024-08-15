@@ -13,7 +13,6 @@ export const htmlComp = `
       <button class="start-btn">Start</button>
   </div>
 </div>
-<div class="flashlight"></div>
 `;
 
 export const bottomText = (question="") => `
