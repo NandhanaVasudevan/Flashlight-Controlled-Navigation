@@ -13,10 +13,7 @@ export const textItems = {
 			`const container = document.querySelector(".${blank}")`
 
 		],
-		answers: [".tic-tac-toe"]
-
-
-
+		answers: ["tic-tac-toe"]
 	},
 	js: {
 		questions: [
