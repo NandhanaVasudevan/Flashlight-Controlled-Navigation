@@ -62,6 +62,26 @@ function initializeComponent(container) {
 				link.style.opacity = 0;
 			}
 		});
+
+		// Check if the mouse is near the scattered items
+		checkHoverEffect(event);
+	}
+
+	function checkHoverEffect(event) {
+		const items = document.querySelectorAll(".scattered-item");
+		items.forEach((item) => {
+			const rect = item.getBoundingClientRect();
+			const distance = Math.hypot(
+				rect.x + rect.width / 2 - event.clientX,
+				rect.y + rect.height / 2 - event.clientY
+			);
+
+			if (distance < 100) {
+				item.style.opacity = 1; // Reveal item
+			} else {
+				item.style.opacity = 0; // Hide item
+			}
+		});
 	}
 
 	function showNextQuestion() {
@@ -141,6 +161,7 @@ function initializeComponent(container) {
 
 			item.style.left = `${x}px`;
 			item.style.top = `${y}px`;
+			item.style.opacity = 0; // Initially hidden
 
 			container.insertAdjacentElement("afterbegin", item);
 		});
