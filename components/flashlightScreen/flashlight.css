@@ -29,6 +29,7 @@ body {
 #answer {
   pointer-events: visible;
   cursor: default;
+  color: red;
 }
 
 .flashlight:hover {
