@@ -48,6 +48,59 @@
   }
 }
 
-#winner {
-  visibility: hidden;
+/* Crash Effect CSS */
+.crash-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
 }
+
+.crash-box {
+  /* background-color: #3498DB; */
+  /* border: 2px solid #fff; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 2s ease, opacity 2s ease;
+  animation: crash 3s ease forwards;
+  /* font-size: 1.5rem; */
+  /* font-weight: bold; */
+}
+
+@keyframes crash {
+  0% {
+      transform: translate(0, 0) rotate(0deg);
+      opacity: 1;
+  }
+  100% {
+      transform: translate(var(--x, 0), var(--y, 0)) rotate(var(--r, 0));
+      opacity: 0;
+  }
+}
+
+@keyframes shake {
+  0%, 100% {
+      transform: translateX(0);
+  }
+  25% {
+      transform: translateX(-10px);
+  }
+  50% {
+      transform: translateX(10px);
+  }
+  75% {
+      transform: translateX(-10px);
+  }
+}
+
+/* Define positions for each box to fly off the screen */
+.crash-box:nth-child(1) { --x: -200px; --y: -300px; --r: -120deg; }
+.crash-box:nth-child(2) { --x: 50px; --y: -250px; --r: 150deg; }
+.crash-box:nth-child(3) { --x: 200px; --y: -200px; --r: 90deg; }
+.crash-box:nth-child(4) { --x: -250px; --y: -100px; --r: -180deg; }
+.crash-box:nth-child(5) { --x: 0px; --y: -50px; --r: 60deg; }
+.crash-box:nth-child(6) { --x: 250px; --y: 0px; --r: -90deg; }
+.crash-box:nth-child(7) { --x: -300px; --y: 50px; --r: 45deg; }
+.crash-box:nth-child(8) { --x: -50px; --y: 100px; --r: 30deg; }
+.crash-box:nth-child(9) { --x: 300px; --y: 150px; --r: -120deg; }

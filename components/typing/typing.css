@@ -1,0 +1,14 @@
+.code-box {
+	font-size: 24px;
+	color: #00ff00;
+	font-family: "Courier New", Courier, monospace;
+	background-color: #3a3a3a;
+	padding: 15px;
+	border-radius: 5px;
+	display: inline-block;
+	border: 2px solid #1e1e1e;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	position: absolute;
+	top: 40svw;
+	left: 35svw;
+}

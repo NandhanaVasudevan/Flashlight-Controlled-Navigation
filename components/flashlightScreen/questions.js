@@ -1,25 +1,28 @@
-import { blank, htmlEntities } from "../../constants/constants.js";
+import { blank } from "../../constants/constants.js";
 
 export const textItems = {
 	html: {
 		questions: [
-			`${htmlEntities["<"]}p class="my-name">${blank}${htmlEntities["<"]}/p>`,
-			`fgebjhg ${blank}`,
+			` <h1>${blank}</h1>`,
+
 		],
-		answers: ["html", "fbsgdf"],
+		answers: ["Tic Tac Toe"],
 	},
 	css: {
 		questions: [
-			`${htmlEntities["<"]}p class="my-name">${blank}${htmlEntities["<"]}/p>`,
-			`nbeb ${blank}`,
+			`const container = document.querySelector(".${blank}")`
+
 		],
-		answers: ["css", "thyhryryhy"],
+		answers: [".tic-tac-toe"]
+
+
+
 	},
 	js: {
 		questions: [
-			`${htmlEntities["<"]}p class="my-name">${blank}${htmlEntities["<"]}/p>`,
-			`frrgthh ${blank}`,
+			`const player1 = "${blank}";`,
+
 		],
-		answers: ["js", "efgh"],
+		answers: ["X"],
 	},
 };

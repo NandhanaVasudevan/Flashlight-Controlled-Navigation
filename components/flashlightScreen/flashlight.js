@@ -1,6 +1,9 @@
 import { blank, words } from "../../constants/constants.js";
-import { htmlComp, bottomText } from "./flashlightHTML.js";
+import { htmlComp } from "./flashlightHTML.js";
 import { textItems } from "./questions.js";
+import { TypingText } from "../typing/typing.js";
+import { tictactoe } from "../tictactoe/tictactoeHTML.js";
+import { main } from "../../script.js";
 
 export function RadiantRiddleComponent() {
 	const container = document.createElement("div");
@@ -27,6 +30,9 @@ function initializeComponent(container) {
 		const popUp = container.querySelector(".welcome-screen");
 		if (popUp) {
 			container.removeChild(popUp);
+			const div = document.createElement("div");
+			div.className = "flashlight";
+			document.body.insertAdjacentElement("afterbegin", div);
 		}
 
 		showNextQuestion();
@@ -34,43 +40,40 @@ function initializeComponent(container) {
 	}
 
 	function addMouseMoveListener() {
-		document.addEventListener("mousemove", function (event) {
-			const flashlight = document.querySelector(".flashlight");
-			flashlight.style.left = event.pageX + "px";
-			flashlight.style.top = event.pageY + "px";
+		document.addEventListener("mousemove", listenerFunction);
+	}
 
-			const links = document.querySelectorAll("nav.hidden-nav a");
-			links.forEach((link) => {
-				const rect = link.getBoundingClientRect();
-				const distance = Math.hypot(
-					rect.x + rect.width / 2 - event.clientX,
-					rect.y + rect.height / 2 - event.clientY
-				);
+	function listenerFunction(event) {
+		const flashlight = document.querySelector(".flashlight");
+		flashlight.style.left = event.pageX + "px";
+		flashlight.style.top = event.pageY + "px";
 
-				if (distance < 100) {
-					link.style.opacity = 1;
-				} else {
-					link.style.opacity = 0;
-				}
-			});
+		const links = document.querySelectorAll("nav.hidden-nav a");
+		links.forEach((link) => {
+			const rect = link.getBoundingClientRect();
+			const distance = Math.hypot(
+				rect.x + rect.width / 2 - event.clientX,
+				rect.y + rect.height / 2 - event.clientY
+			);
+
+			if (distance < 100) {
+				link.style.opacity = 1;
+			} else {
+				link.style.opacity = 0;
+			}
 		});
 	}
 
 	function showNextQuestion() {
 		const questionSet = textItems[currentCategory];
 		if (currentQuestionIndex < questionSet.questions.length) {
-			let target = container.querySelector(".target");
-
-			if (!target) {
-				const div = document.createElement("div");
-				div.className = "target";
-				container.insertAdjacentElement("beforeend", div);
-				target = div;
+			const text = questionSet.questions[currentQuestionIndex];
+			const codeBox = document.querySelector(".code-box");
+			if (codeBox) {
+				codeBox.remove();
 			}
 
-			target.innerHTML = bottomText(
-				questionSet.questions[currentQuestionIndex]
-			);
+			TypingText({ container: container, text: text, speed: 50 });
 
 			placeItemsRandomly(
 				createElementFromString([
@@ -90,11 +93,42 @@ function initializeComponent(container) {
 			currentCategory = "js";
 		} else {
 			console.log("All questions completed!");
-			document.querySelectorAll('.scattered-item').forEach(e => e.remove());
+			backToTicTacToe();
+			console.log("returning");
 			return;
 		}
 		currentQuestionIndex = 0;
 		showNextQuestion();
+	}
+
+	function backToTicTacToe() {
+		setTimeout(() => {
+			document.querySelectorAll(".scattered-item").forEach((e) => e.remove());
+			const flashlightGame = document.querySelector(
+				".radiant-riddle-container"
+			);
+			while (flashlightGame.firstChild) {
+				flashlightGame.removeChild(flashlightGame.firstChild);
+			}
+			try {
+				document.removeEventListener("mousemove", listenerFunction);
+			} catch (e) {
+				console.log(e);
+			}
+
+			if (flashlightGame) flashlightGame.remove();
+			const flashlight = document.querySelector(".flashlight");
+
+			if (flashlight) flashlight.remove();
+
+			document.querySelectorAll("link").forEach((link) => link.remove());
+			const link = document.createElement("link");
+			link.rel = "stylesheet";
+			link.href = "styles.css";
+			document.head.insertAdjacentElement("beforeend", link);
+			document.body.insertAdjacentHTML("afterbegin", tictactoe);
+			main(false);
+		}, 500);
 	}
 
 	function placeItemsRandomly(items) {
@@ -128,15 +162,18 @@ function initializeComponent(container) {
 
 	function handleAnswerClick(event) {
 		const clickedElement = event.target;
-
-		const textBox = container.querySelector(".target-text");
+		const textBox = container.querySelector(".code-box");
 
 		textBox.textContent = textBox.textContent.replace(
 			blank,
 			clickedElement.innerText
 		);
 
-		currentQuestionIndex++;
-		showNextQuestion();
+		clickedElement.remove();
+
+		setTimeout(() => {
+			currentQuestionIndex++;
+			showNextQuestion();
+		}, 2000);
 	}
 }

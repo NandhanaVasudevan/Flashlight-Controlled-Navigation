@@ -10,9 +10,3 @@ export const words = {
 };
 
 export const blank = "______";
-
-export const htmlEntities = {
-  '<': '&lt',
-  '>': '&gt',
-  '&': '&amp',
-}
