@@ -48,10 +48,6 @@
   }
 }
 
-#winner {
-  visibility: hidden;
-}
-
 /* Crash Effect CSS */
 .crash-container {
   position: relative;
