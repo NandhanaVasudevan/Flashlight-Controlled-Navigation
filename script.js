@@ -12,7 +12,7 @@ export function main(random = false) {
 	};
 
 	if (winnerText) {
-		winnerText.textContent = displayScore(score);
+		winnerText.innerHTML = displayScore(score);
 	}
 
 	const winPatterns = [
@@ -53,7 +53,7 @@ export function main(random = false) {
 				} else {
 					score.player2++;
 				}
-				winnerText.textContent = displayScore(score);
+				winnerText.innerHTML = displayScore(score);
 				if (random) {
 					endTicTacToe();
 					return;
@@ -61,7 +61,8 @@ export function main(random = false) {
 
 				resetBoxes();
 			} else if (isDraw()) {
-				resetBoxes();
+				if (!random) resetBoxes();
+				else endTicTacToe();
 			}
 
 			turn1 = !turn1;
@@ -69,7 +70,9 @@ export function main(random = false) {
 	});
 
 	const isDraw = () => {
-		return Array.from(boxes).every((box) => box.innerText !== "") && !isWinner();
+		return (
+			Array.from(boxes).every((box) => box.innerText !== "") && !isWinner()
+		);
 	};
 
 	const isWinner = () => {
@@ -120,7 +123,7 @@ export function main(random = false) {
 	}
 
 	function displayScore({ player1, player2 }) {
-		return `X - ${player1}\t\t\tO - ${player2}`;
+		return `X - ${player1}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;O - ${player2}`;
 	}
 }
 
