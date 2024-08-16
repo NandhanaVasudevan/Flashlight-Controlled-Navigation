@@ -76,7 +76,7 @@ function initializeComponent(container) {
 				rect.y + rect.height / 2 - event.clientY
 			);
 
-			if (distance < 100) {
+			if (distance < 200) {
 				item.style.opacity = 1; // Reveal item
 			} else {
 				item.style.opacity = 0; // Hide item
@@ -169,17 +169,46 @@ function initializeComponent(container) {
 
 	function createElementFromString(strings) {
 		const length = strings.length;
-		return strings.map((string, index) => {
+		const items = strings.map((string, index) => {
 			const span = document.createElement("span");
 			span.className = "scattered-item";
 			span.innerText = string;
+			span.style.color = "black"; // Initial color is black
+	
 			if (index === length - 1) {
 				span.setAttribute("id", "answer");
 				span.addEventListener("click", handleAnswerClick);
 			}
+	
 			return span;
 		});
+	
+		// Add a mousemove event listener to check the distance between the flashlight and the scattered items
+		document.addEventListener("mousemove", function (event) {
+			const flashlight = document.querySelector(".flashlight");
+	
+			if (flashlight) {
+				const flashlightRect = flashlight.getBoundingClientRect();
+	
+				items.forEach((item) => {
+					const itemRect = item.getBoundingClientRect();
+					const distance = Math.hypot(
+						flashlightRect.x + flashlightRect.width / 2 - (itemRect.x + itemRect.width / 2),
+						flashlightRect.y + flashlightRect.height / 2 - (itemRect.y + itemRect.height / 2)
+					);
+	
+					if (distance <= 50) {
+						item.style.color = "gray"; // Change color to gray
+					} else {
+						item.style.color = "black"; // Change back to black
+					}
+				});
+			}
+		});
+	
+		return items;
 	}
+	
 
 	function handleAnswerClick(event) {
 		const clickedElement = event.target;
