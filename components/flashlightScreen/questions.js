@@ -3,23 +3,26 @@ import { blank } from "../../constants/constants.js";
 export const textItems = {
 	html: {
 		questions: [
-			`<p class="my-name">${blank}</p>`,
-			`fgebjhg ${blank}`,
+			` <h1>${blank}</h1>`,
+
 		],
-		answers: ["html", "fbsgdf"],
+		answers: ["Tic Tac Toe"],
 	},
 	css: {
 		questions: [
-			`<p class="my-name">${blank}</p>`,
-			`nbeb ${blank}`,
+			`const container = document.querySelector(".${blank}")`
+
 		],
-		answers: ["css", "thyhryryhy"],
+		answers: [".tic-tac-toe"]
+
+
+
 	},
 	js: {
 		questions: [
-			`<p class="my-name">${blank}</p>`,
-			`frrgthh ${blank}`,
+			`const player1 = "${blank}";`,
+
 		],
-		answers: ["js", "efgh"],
+		answers: ["X"],
 	},
 };
