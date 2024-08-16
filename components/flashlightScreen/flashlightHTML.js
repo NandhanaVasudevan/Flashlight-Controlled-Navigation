@@ -5,10 +5,10 @@ export const htmlComp = `
       <p class="subtitle">- Unveil the Unknown -</p>
       <div class="instructions">
           <p>Instructions:</p>
-          <p>1. Use your mouse to navigate the flashlight and discover hidden elements.</p>
-          <p>2. Collect all the pieces to solve the puzzle.</p>
-          <p>3. Once the puzzle is solved, the full content will be revealed.</p>
-          <p>4. Enjoy your journey!</p>
+          <p>1. Correct the Tic-Tac-Toe game by completing the code.</p>
+          <p>2. Use your mouse to explore the site with the flashlight.</p>
+          <p>3. Collect all puzzle pieces.</p>
+          <p>4. Play the corrected Tic-Tac-Toe game as many times as you want!</p>
       </div>
       <button class="start-btn">Start</button>
   </div>
