@@ -41,6 +41,7 @@ body {
   position: absolute;
   color: #000;
   cursor: normal;
+  font-size: 35px;
 
   &:hover {
       color: white;
