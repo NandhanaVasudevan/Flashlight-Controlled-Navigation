@@ -123,34 +123,139 @@ function initializeComponent(container) {
 
 	function backToTicTacToe() {
 		setTimeout(() => {
-			document.querySelectorAll(".scattered-item").forEach((e) => e.remove());
-			const flashlightGame = document.querySelector(
-				".radiant-riddle-container"
-			);
-			while (flashlightGame.firstChild) {
-				flashlightGame.removeChild(flashlightGame.firstChild);
+		  // Clean up the flashlight effect and its elements
+		  document.querySelectorAll(".scattered-item").forEach((e) => e.remove());
+		  const flashlightGame = document.querySelector(".radiant-riddle-container");
+		  while (flashlightGame && flashlightGame.firstChild) {
+			flashlightGame.removeChild(flashlightGame.firstChild);
+		  }
+		  try {
+			document.removeEventListener("mousemove", listenerFunction);
+		  } catch (e) {
+			console.log(e);
+		  }
+	  
+		  if (flashlightGame) flashlightGame.remove();
+		  const flashlight = document.querySelector(".flashlight");
+	  
+		  if (flashlight) flashlight.remove();
+	  
+		  // Remove existing stylesheets and add the Tic Tac Toe stylesheet
+		  document.querySelectorAll("link").forEach((link) => link.remove());
+		  const link = document.createElement("link");
+		  link.rel = "stylesheet";
+		  link.href = "styles.css";
+		  document.head.insertAdjacentElement("beforeend", link);
+	  
+		  // Reset the Tic Tac Toe game HTML and initialize it in normal mode
+		  document.body.innerHTML = ""; // Clear the body content
+		  document.body.insertAdjacentHTML("afterbegin", tictactoe);
+	  
+		  // Reinitialize the Tic Tac Toe game in normal mode
+		  initializeNormalTicTacToe();
+		  
+		}, 500); // Adjust the delay as needed
+	  }
+	  
+	  function initializeNormalTicTacToe() {
+		const boxes = document.querySelectorAll(".box");
+		const winnerText = document.querySelector("#winner");
+		const player1 = "X";
+		const player2 = "O";
+		const score = { player1: 0, player2: 0 }; // Initialize score
+	  
+		const winPatterns = [
+		  [0, 1, 2],
+		  [3, 4, 5],
+		  [6, 7, 8],
+		  [0, 3, 6],
+		  [1, 4, 7],
+		  [2, 5, 8],
+		  [0, 4, 8],
+		  [2, 4, 6],
+		];
+	  
+		boxes.forEach((box) => {
+		  box.addEventListener("click", () => {
+			if (box.innerText !== "") return;
+	  
+			// Place the user's "X" in the clicked box
+			box.innerText = player1;
+			box.disabled = true;
+	  
+			if (isWinner(player1)) {
+			  winnerText.innerHTML = `X wins!`;
+			  updateScore(player1);
+			  setTimeout(resetGame, 1000); // Delay before resetting the game
+			  return;
 			}
-			try {
-				document.removeEventListener("mousemove", listenerFunction);
-			} catch (e) {
-				console.log(e);
+	  
+			if (isDraw()) {
+			  winnerText.innerHTML = "It's a draw!";
+			  setTimeout(resetGame, 1000); // Delay before resetting the game
+			  return;
 			}
-
-			if (flashlightGame) flashlightGame.remove();
-			const flashlight = document.querySelector(".flashlight");
-
-			if (flashlight) flashlight.remove();
-
-			document.querySelectorAll("link").forEach((link) => link.remove());
-			const link = document.createElement("link");
-			link.rel = "stylesheet";
-			link.href = "styles.css";
-			document.head.insertAdjacentElement("beforeend", link);
-			document.body.insertAdjacentHTML("afterbegin", tictactoe);
-			main(false);
-		}, 500);
-	}
-
+	  
+			// Computer's move after the user's move
+			setTimeout(() => {
+			  const computerMove = getComputerMove();
+			  if (computerMove) {
+				computerMove.innerText = player2;
+				computerMove.disabled = true;
+	  
+				if (isWinner(player2)) {
+				  winnerText.innerHTML = `O wins!`;
+				  updateScore(player2);
+				  setTimeout(resetGame, 1000); // Delay before resetting the game
+				  return;
+				}
+	  
+				if (isDraw()) {
+				  winnerText.innerHTML = "It's a draw!";
+				  setTimeout(resetGame, 1000); // Delay before resetting the game
+				  return;
+				}
+			  }
+			}, 500); // Delay to simulate thinking
+		  });
+		});
+	  
+		function isDraw() {
+		  return Array.from(boxes).every((box) => box.innerText !== "") && !isWinner(player1) && !isWinner(player2);
+		}
+	  
+		function isWinner(player) {
+		  return winPatterns.some((pattern) => {
+			const [a, b, c] = pattern;
+			return boxes[a].innerText === player && boxes[b].innerText === player && boxes[c].innerText === player;
+		  });
+		}
+	  
+		function updateScore(winner) {
+		  if (winner === player1) {
+			score.player1++;
+		  } else if (winner === player2) {
+			score.player2++;
+		  }
+		  winnerText.innerHTML = `X - ${score.player1} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; O - ${score.player2}`;
+		}
+	  
+		function getComputerMove() {
+		  const availableBoxes = Array.from(boxes).filter((box) => box.textContent === "");
+		  if (availableBoxes.length === 0) return null;
+		  const randomIndex = Math.floor(Math.random() * availableBoxes.length);
+		  return availableBoxes[randomIndex];
+		}
+	  
+		function resetGame() {
+		  boxes.forEach((box) => {
+			box.disabled = false;
+			box.textContent = "";
+		  });
+		}
+	  }
+	  
+	  
 	function placeItemsRandomly(items) {
 		container
 			.querySelectorAll(".scattered-item")
