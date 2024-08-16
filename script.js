@@ -59,15 +59,18 @@ export function main(random = false) {
 					return;
 				}
 
-				boxes.forEach((box) => {
-					box.disabled = false;
-					box.textContent = "";
-				});
+				resetBoxes();
+			} else if (isDraw()) {
+				resetBoxes();
 			}
 
 			turn1 = !turn1;
 		});
 	});
+
+	const isDraw = () => {
+		return Array.from(boxes).every((box) => box.innerText !== "") && !isWinner();
+	};
 
 	const isWinner = () => {
 		for (let pattern of winPatterns) {
@@ -107,9 +110,13 @@ export function main(random = false) {
 
 	function endTicTacToe() {
 		if (random) initiateCrashEffect();
-		// else {
-		// 	// main();
-		// }
+	}
+
+	function resetBoxes() {
+		boxes.forEach((box) => {
+			box.disabled = false;
+			box.textContent = "";
+		});
 	}
 
 	function displayScore({ player1, player2 }) {
