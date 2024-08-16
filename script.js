@@ -3,10 +3,17 @@ import { RadiantRiddleComponent } from "./components/flashlightScreen/flashlight
 export function main(random = false) {
 	const boxes = document.querySelectorAll(".box");
 	const winnerText = document.querySelector("#winner");
-	let gameOver = false;
 	let turn1 = true;
 	const player1 = "X";
 	const player2 = "O";
+	const score = {
+		player1: 0,
+		player2: 0,
+	};
+
+	if (winnerText) {
+		winnerText.textContent = displayScore(score);
+	}
 
 	const winPatterns = [
 		[0, 1, 2],
@@ -21,7 +28,6 @@ export function main(random = false) {
 
 	boxes.forEach((box) => {
 		box.addEventListener("click", () => {
-			if (gameOver) return;
 			let itemBox;
 			if (random) {
 				itemBox = getRandomBox();
@@ -34,7 +40,7 @@ export function main(random = false) {
 			);
 
 			if (availableBoxes.length === 0) {
-				endTicTacToe();
+				setTimeout(endTicTacToe, 500);
 				return;
 			}
 
@@ -42,11 +48,21 @@ export function main(random = false) {
 			itemBox.disabled = true;
 
 			if (isWinner()) {
-				winnerText.textContent = `${itemBox.innerText} won! Reset game to play again`;
-				winnerText.style.visibility = "visible";
-				gameOver = true;
+				if (itemBox.innerText === "X") {
+					score.player1++;
+				} else {
+					score.player2++;
+				}
+				winnerText.textContent = displayScore(score);
+				if (random) {
+					endTicTacToe();
+					return;
+				}
 
-				endTicTacToe();
+				boxes.forEach((box) => {
+					box.disabled = false;
+					box.textContent = "";
+				});
 			}
 
 			turn1 = !turn1;
@@ -90,11 +106,14 @@ export function main(random = false) {
 	}
 
 	function endTicTacToe() {
-		if (random)
-			initiateCrashEffect();
+		if (random) initiateCrashEffect();
 		// else {
 		// 	// main();
 		// }
+	}
+
+	function displayScore({ player1, player2 }) {
+		return `X - ${player1}\t\t\tO - ${player2}`;
 	}
 }
 
