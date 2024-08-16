@@ -128,7 +128,7 @@ function initializeComponent(container) {
 			document.head.insertAdjacentElement("beforeend", link);
 			document.body.insertAdjacentHTML("afterbegin", tictactoe);
 			main(false);
-		}, 2000);
+		}, 500);
 	}
 
 	function placeItemsRandomly(items) {
